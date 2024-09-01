@@ -2,8 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return ['Laravel' => app()->version()];
+Route::fallback(fn() => view('errors.404'));
+
+Route::get('/', fn() => view('welcome'))->name('home');
+
+Route::group(['middleware' => 'guest'], function () {
+    // 
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
