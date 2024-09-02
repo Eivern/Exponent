@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginRequest extends FormRequest
 {
@@ -27,8 +28,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
+            'email' => ['required', 'string', 'email', 'unique:users,email,except,id'],
+            'password' => ['required', 'string', 'min:8'],
         ];
     }
 
@@ -43,6 +44,8 @@ class LoginRequest extends FormRequest
 
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
+
+            Alert::toast('Your email or password is incorrect.', 'error');
 
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
@@ -66,6 +69,8 @@ class LoginRequest extends FormRequest
         event(new Lockout($this));
 
         $seconds = RateLimiter::availableIn($this->throttleKey());
+
+        Alert::toast('Too many login attempts. Please try again in '.$seconds.' seconds.', 'error');
 
         throw ValidationException::withMessages([
             'email' => trans('auth.throttle', [

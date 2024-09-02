@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -21,6 +22,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): Response
     {
+
+        dd($request);
+        // $errors = $request->errors()->all();
+
+        // $errorMessage = implode(' ', $errors);
+        // Alert::error('Validation Error', $errorMessage);
+
         $request->authenticate();
 
         $request->session()->regenerate();
