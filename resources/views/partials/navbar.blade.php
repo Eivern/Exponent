@@ -16,7 +16,7 @@
             <form action="{{ route('auth.logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border shadow-sm focus:outline-none disabled:opacity-50 disabled:pointer-events-none bg-neutral-800 border-neutral-700 text-white hover:bg-neutral-700 focus:bg-neutral-700">
-                    Logout &leftarrow;
+                    &leftarrow; Logout
                 </button>
             </form>
             @else
