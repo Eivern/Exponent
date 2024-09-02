@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'discord_url' => env('DISCORD_SERVER_URL'),
+
 ];

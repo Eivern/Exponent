@@ -7,7 +7,11 @@ export default {
     "./node_modules/preline/dist/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'funny-egg': '#f7f8fe',
+      },
+    },
   },
   plugins: [
     require('preline/plugin'),
